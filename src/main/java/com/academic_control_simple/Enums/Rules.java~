@@ -1,0 +1,7 @@
+package com.academic_control_simple.Enums;
+
+public enum Rules {
+    PROFESSOR,
+    ALUNO,
+    MASTER
+}
