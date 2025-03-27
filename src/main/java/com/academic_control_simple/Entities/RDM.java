@@ -11,7 +11,7 @@ public class RDM {
         disciplines.add(discipline);
     }
 
-    private List<Discipline> removeDiscipline(UUID id) {
+    public List<Discipline> removeDiscipline(UUID id) {
         disciplines.removeIf(discipline -> discipline.getId().equals(id));
         return disciplines;
     }
