@@ -1,7 +1,9 @@
 package com.academic_control_simple.Entities;
 
+import com.academic_control_simple.Enums.Day;
 import com.academic_control_simple.Enums.Rules;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -51,13 +53,13 @@ public class AcademicControl {
         return null;
     }
 
-    public ClassGroup createClassGroup(UUID disciplineId, UUID userId) {
-
+    public ClassGroup createClassGroup(UUID disciplineId, UUID userId, Day day, LocalTime startTime) {
         Discipline discipline = findDisciplineById(disciplineId);
         User user = findUserByUserId(userId);
 
         if (user.getRule() == Rules.TEACHER) {
-            ClassGroup classGroup = new ClassGroup(discipline, user);
+            LocalTime endTime = startTime.plusHours(2);
+            ClassGroup classGroup = new ClassGroup(discipline, user, day, startTime, endTime);
             classGroups.add(classGroup);
             return classGroup;
         }
