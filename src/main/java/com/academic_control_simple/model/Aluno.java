@@ -1,13 +1,12 @@
 package com.academic_control_simple.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Aluno extends Usuario {
-    private final List<Disciplina> disciplinasMatriculadas = new ArrayList<>();
+    private final Set<Disciplina> disciplinasMatriculadas = new HashSet<>();
 
-    public Aluno(String matricula, String nome, String email, String senha, Horario horario) {
-        super(matricula, nome, email, senha, horario);
+    public Aluno(String matricula, String nome,Horario horario) {
+        super(matricula, nome, horario);
     }
 
     public void adicionarDisciplina(Disciplina disciplina) {
@@ -15,7 +14,20 @@ public class Aluno extends Usuario {
         disciplina.adicionarAluno(this);
     }
 
-    public List<Disciplina> getDisciplinas() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Aluno aluno = (Aluno) o;
+        return Objects.equals(matricula, aluno.matricula);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(matricula);
+    }
+
+    public Set<Disciplina> getDisciplinas() {
         return disciplinasMatriculadas;
     }
 }

@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ProfessorTest {
     @Test
     void adicionarDisciplinaDeveAtribuirProfessor() {
-        Professor professor = new Professor("P123", "Dr. Silva", "silva@universidade.com", "senha123", new Horario(LocalTime.of(8, 0), LocalTime.of(12, 0)));
+        Professor professor = new Professor("P123", "Dr. Silva", new Horario(LocalTime.of(8, 0), LocalTime.of(12, 0)));
         Disciplina disciplina = new Disciplina("Física");
 
         professor.adicionarDisciplina(disciplina);

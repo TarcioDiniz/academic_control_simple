@@ -1,9 +1,6 @@
 package com.academic_control_simple;
 
-import com.academic_control_simple.model.Aluno;
-import com.academic_control_simple.model.Disciplina;
-import com.academic_control_simple.model.Horario;
-import com.academic_control_simple.model.Professor;
+import com.academic_control_simple.model.*;
 
 import java.time.LocalTime;
 import java.util.Arrays;
@@ -12,48 +9,34 @@ import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
+        ControleAcademico controle = new ControleAcademico();
+
         Horario horarioMatutino = new Horario(LocalTime.of(8, 0), LocalTime.of(12, 0));
 
-        List<Professor> professores = Arrays.asList(
-                new Professor("P123", "Dra. Sabrina", "silva@universidade.com", "senha123", horarioMatutino),
-                new Professor("P124", "Prof. Ana Costa", "ana@universidade.com", "senha456", horarioMatutino)
-        );
+        Professor professor1 = controle.criarProfessor("P1234", "Dra. Sabrina",  horarioMatutino);
+        Professor professor2 = controle.criarProfessor("P124", "Prof. Ana Costa",  horarioMatutino);
 
-        List<Aluno> alunos = Arrays.asList(
-                new Aluno("A001", "Tarcio", "tarcio@email.com", "senha001", horarioMatutino),
-                new Aluno("A002", "Maria", "maria@email.com", "senha002", horarioMatutino),
-                new Aluno("A003", "Ronaldo", "ronaldo@email.com", "senha003", horarioMatutino)
-        );
+        Aluno aluno1 = controle.criarAluno("A001", "Tarcio",  horarioMatutino);
+        Aluno aluno2 = controle.criarAluno("A002", "Maria",  horarioMatutino);
+        Aluno aluno3 = controle.criarAluno("A003", "Ronaldo",  horarioMatutino);
 
-        List<Disciplina> disciplinas = Arrays.asList(
-                new Disciplina("MAP"),
-                new Disciplina("LEDA"),
-                new Disciplina("Laboratório de Programação 2")
-        );
+        Disciplina disciplina1 = controle.criarDisciplina("MAP");
+        Disciplina disciplina2 = controle.criarDisciplina("LEDA");
+        Disciplina disciplina3 = controle.criarDisciplina("Laboratório de Programação 2");
 
-        professores.get(0).adicionarDisciplina(disciplinas.get(0));
-        professores.get(1).adicionarDisciplina(disciplinas.get(1));
-        professores.get(1).adicionarDisciplina(disciplinas.get(2));
+        controle.atribuirProfessorADisciplina(professor1, disciplina1);
+        controle.atribuirProfessorADisciplina(professor2, disciplina2);
+        controle.atribuirProfessorADisciplina(professor2, disciplina3);
 
-        alunos.forEach(aluno -> {
-            aluno.adicionarDisciplina(disciplinas.get(0));
-            aluno.adicionarDisciplina(disciplinas.get(2));
-        });
+        controle.matricularAlunoEmDisciplina(aluno1, disciplina1);
+        controle.matricularAlunoEmDisciplina(aluno1, disciplina2);
+        controle.matricularAlunoEmDisciplina(aluno2, disciplina1);
+        controle.matricularAlunoEmDisciplina(aluno2, disciplina3);
+        controle.matricularAlunoEmDisciplina(aluno3, disciplina1);
+        controle.matricularAlunoEmDisciplina(aluno3, disciplina3);
 
-        professores.forEach(prof -> {
-            System.out.println("Professor: " + prof.getNome());
-            System.out.println("Horário do professor: " + prof.getHorario().getHorarioCompleto());
-            System.out.println("Disciplinas ministradas: " + prof.getDisciplinasMinistradas().stream().map(Disciplina::getNome).collect(Collectors.toList()));
-            System.out.println("------------------------");
-        });
-
-        alunos.forEach(aluno -> {
-            System.out.println("Aluno: " + aluno.getNome());
-            System.out.println("Horário do aluno: " + aluno.getHorario().getHorarioCompleto());
-            System.out.println("Disciplinas matriculadas: " + aluno.getDisciplinas().stream().map(Disciplina::getNome).collect(Collectors.toList()));
-            System.out.println("------------------------");
-        });
-
-        disciplinas.forEach(disc -> System.out.println("Disciplina: " + disc.getNome() + " - Número de alunos: " + disc.getNumeroAlunos()));
+        controle.listarProfessores();
+        controle.listarAlunos();
+        controle.exibirDisciplinas();
     }
 }

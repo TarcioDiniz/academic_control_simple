@@ -1,12 +1,11 @@
 package com.academic_control_simple.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Disciplina {
     private final String nome;
     private Professor professor;
-    private final List<Aluno> alunosMatriculados = new ArrayList<>();
+    private final Set<Aluno> alunosMatriculados = new HashSet<>();
 
     public Disciplina(String nome) {
         this.nome = nome;
@@ -24,7 +23,12 @@ public class Disciplina {
         return nome;
     }
 
-    public List<Aluno> getAlunosMatriculados() {
+    @Override
+    public String toString() {
+        return nome;
+    }
+
+    public Set<Aluno> getAlunosMatriculados() {
         return alunosMatriculados;
     }
 
@@ -34,5 +38,18 @@ public class Disciplina {
 
     public Professor getProfessor() {
         return professor;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Disciplina disciplina = (Disciplina) o;
+        return Objects.equals(nome, disciplina.nome);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome);
     }
 }

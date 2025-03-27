@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class AlunoTest {
     @Test
     void adicionarDisciplinaDeveAdicionarCorretamente() {
-        Aluno aluno = new Aluno("A001", "João", "joao@email.com", "senha001", new Horario(LocalTime.of(8, 0), LocalTime.of(12, 0)));
+        Aluno aluno = new Aluno("A001", "João",  new Horario(LocalTime.of(8, 0), LocalTime.of(12, 0)));
         Disciplina disciplina = new Disciplina("Matemática");
 
         aluno.adicionarDisciplina(disciplina);
